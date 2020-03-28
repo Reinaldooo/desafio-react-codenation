@@ -27,14 +27,18 @@ const decipher = ({ cifrado, numero_casas }) => {
   let decifrado = "";
   for (var i = 0; i < cifrado.length; i++) {
     let charCode = cifrado.charCodeAt(i);
+    // Check if char is in between a and z,
     if (charCode > 96 && charCode < 123) {
+      // To decipher, substract the number
       charCode -= numero_casas;
+      // If the new char is 'less' than 'a', 26 should be added to correct it
       if (charCode < 97) {
         charCode += 26;
       }
       decifrado += String.fromCharCode(charCode);
       continue;
     }
+    // In case its not a to z, just copy the char
     decifrado += cifrado[i];
   }
   return decifrado;
@@ -44,13 +48,15 @@ const handleJSON = async () => {
   return await axios
     .get(`https://api.codenation.dev/v1/challenge/dev-ps/generate-data${token}`)
     .then(({ data }) => {
+      // IF the number is greater than 26, mod should be used to correct it
+      // 27 % 26 == 1, 28 % 26 == 2, etc... 
       if (data.numero_casas > 26) {
         data.numero_casas = data.numero_casas % 26;
       }
       storeJSON(data, "./answer.json");
     })
     .then(() => {
-      let answer = loadJSON("./answer.json");
+      let answer = await loadJSON("./answer.json");
       let decifrado = decipher(answer);
       answer.decifrado = decifrado;
       answer.resumo_criptografico = sha1(decifrado);
