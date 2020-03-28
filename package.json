@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Reinaldooo/desafio-react-codenation#readme",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "js-sha1": "^0.6.0"
   }
 }
