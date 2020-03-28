@@ -12,6 +12,7 @@ Segundo o Wikipedia, criptografia ou criptologia (em grego: kryptós, “escondi
 - Neste caso os números e pontos serão mantidos, ou seja:
 
 >Normal: 2a.a
+
 >Cifrado: 2d.d
 
 Este algoritmo escrito em JavaScript utiliza o NodeJS para enviar uma requisição `GET` à API da codenation e recebe o seguinte JSON:
@@ -35,3 +36,15 @@ Em seguida ele salva o conteúdo do JSON em um arquivo com o nome answer.json, e
 - Envia uma requisição `POST` para a API enviando o arquivo alterado
 
 Em seguida a API responde com `{ "score": 100}` indicando que o algoritmo funciona perfeitamente.
+
+JSON após modificações:
+
+```
+{
+  numero_casas: 10,
+  token: '2706026471a1e62a3882211060985bafe80b72f0',
+  cifrado: 'm sc aesbui, pvkgon, kxn kx oxybwyec cemmocc. exuxygx',
+  decifrado: 'c is quirky, flawed, and an enormous success. unknown',
+  resumo_criptografico: '0182aa7cb8cc667eda8f6738b7414c788da5e261'
+}
+```
