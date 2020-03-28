@@ -1,0 +1,22 @@
+{
+  "name": "desafio-react-codenation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Reinaldooo/desafio-react-codenation.git"
+  },
+  "author": "Reinaldo Trindade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Reinaldooo/desafio-react-codenation/issues"
+  },
+  "homepage": "https://github.com/Reinaldooo/desafio-react-codenation#readme",
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}
