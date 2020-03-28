@@ -56,7 +56,7 @@ const handleJSON = async () => {
       storeJSON(data, "./answer.json");
     })
     .then(() => {
-      let answer = await loadJSON("./answer.json");
+      let answer = loadJSON("./answer.json");
       let decifrado = decipher(answer);
       answer.decifrado = decifrado;
       answer.resumo_criptografico = sha1(decifrado);
