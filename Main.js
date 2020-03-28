@@ -1,6 +1,9 @@
 const fs = require("fs");
 const axios = require("axios");
 let sha1 = require("js-sha1");
+var FormData = require("form-data");
+
+const token = "?token=2706026471a1e62a3882211060985bafe80b72f0";
 
 const storeJSON = (data, path) => {
   try {
@@ -39,15 +42,12 @@ const decipher = ({ cifrado, numero_casas }) => {
 
 const handleJSON = async () => {
   return await axios
-    .get(
-      "https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=2706026471a1e62a3882211060985bafe80b72f0"
-    )
+    .get(`https://api.codenation.dev/v1/challenge/dev-ps/generate-data${token}`)
     .then(({ data }) => {
       if (data.numero_casas > 26) {
         data.numero_casas = data.numero_casas % 26;
       }
       storeJSON(data, "./answer.json");
-      console.log("ok");
     })
     .then(() => {
       let answer = loadJSON("./answer.json");
@@ -55,7 +55,7 @@ const handleJSON = async () => {
       answer.decifrado = decifrado;
       answer.resumo_criptografico = sha1(decifrado);
       storeJSON(answer, "./answer.json");
-      return answer;
+      return true;
     })
     .catch(error => {
       console.log(error);
@@ -63,4 +63,21 @@ const handleJSON = async () => {
     });
 };
 
-handleJSON()
+(async () => {
+  let answerOK = await handleJSON();
+  if (answerOK) {
+    let data = new FormData();
+    data.append("answer", fs.createReadStream("./answer.json"));
+
+    axios
+      .post(
+        `https://api.codenation.dev/v1/challenge/dev-ps/submit-solution${token}`,
+        data,
+        {
+          headers: data.getHeaders()
+        }
+      )
+      .then(response => console.log(response.data))
+      .catch(errors => console.log(errors));
+  }
+})();
